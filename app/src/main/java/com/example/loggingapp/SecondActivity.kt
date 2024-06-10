@@ -1,5 +1,6 @@
 package com.example.loggingapp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -7,7 +8,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,10 +30,16 @@ class SecondActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent {
             LoggingAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    secondpage(modifier = Modifier.padding(innerPadding))
+                    secondpage(
+//                        modifier = Modifier.padding(innerPadding)
+//                    val email = intent.getStringExtra("email"))
+                        (intent.getStringExtra("email")),
+                        Modifier.padding(innerPadding))
+
 
                 }
             }
@@ -39,7 +48,7 @@ class SecondActivity : ComponentActivity() {
 }
 
 @Composable
-fun secondpage(modifier: Modifier = Modifier) {
+fun secondpage(email: String?, modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -55,8 +64,11 @@ fun secondpage(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(Alignment.Center)
         ) {
+
             Text(
-                text = "स्वागत! ",
+                text = "स्वागत! \n  \n $email ",
+                //Spacer(modifier = Modifier.height(40.dp))
+
                 fontSize = 40.sp,
                 fontStyle = FontStyle.Italic ,
                 fontWeight = FontWeight.Bold,
@@ -73,6 +85,6 @@ fun secondpage(modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     LoggingAppTheme {
-        secondpage()
+        secondpage(email = "john@.com")
     }
 }

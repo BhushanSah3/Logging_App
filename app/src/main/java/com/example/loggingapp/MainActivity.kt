@@ -1,5 +1,6 @@
 package com.example.loggingapp
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -103,7 +104,7 @@ fun Loginui() {
             )
 //            If emailError.value is not empty,
 //            isError will be true, which triggers the OutlinedTextField to show an error state
-            
+
 //            The if (emailError.value.isNotEmpty()) block checks if there is an error message to be displayed.
 //            If emailError.value is not empty,
 //            the Text composable below the OutlinedTextField will display the error message in red.
@@ -163,16 +164,14 @@ fun Loginui() {
                         }
                     } else if (!email.value.contains("@")) {
                         emailError.value = "Email must contain @"
-                    }else if(!email.value.contains(".com")) {
-                            emailError.value = "Email must contain .com"
-                    }
-                    else {
+                    } else if (!email.value.contains(".com")) {
+                        emailError.value = "Email must contain .com"
+                    } else {
                         Toast.makeText(context, "Login in Successfully", Toast.LENGTH_SHORT).show()
-//                        OutlinedButton.setOnClickListener {
-//                            val intent = Intent(this, SecondActivity::class.java).also
-//                            startActivity(Intent(context, SecondActivity::class.java))
-//                        }
-                        context.startActivity(Intent(context, SecondActivity::class.java))
+                        Intent(context, SecondActivity::class.java).also { intent ->
+                            intent.putExtra("email", email.value)
+                            context.startActivity(intent)
+                        }
                     }
 
                 },
@@ -189,7 +188,8 @@ fun Loginui() {
         }
     }
 }
-  // this is for seeing preview as we used to see in the xml
+
+// this is for seeing preview as we used to see in the xml
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
